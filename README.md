@@ -13,7 +13,7 @@ php artisan serve
 **Register**
 
 ```bash
-curl -X POST http://127.0.0.1:8000/api/register \
+curl -X POST http://127.0.0.1:8000/api/v1/register \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
   -d '{"name":"Test User","email":"testuser@example.com","password":"password123","password_confirmation":"password123"}'
@@ -22,7 +22,7 @@ curl -X POST http://127.0.0.1:8000/api/register \
 **Login (copy token from response)**
 
 ```bash
-curl -X POST http://127.0.0.1:8000/api/login \
+curl -X POST http://127.0.0.1:8000/api/v1/login \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
   -d '{"email":"testuser@example.com","password":"password123"}'
@@ -37,7 +37,7 @@ TOKEN="PASTE_TOKEN_HERE"
 **Logout**
 
 ```bash
-curl -X POST http://127.0.0.1:8000/api/logout \
+curl -X POST http://127.0.0.1:8000/api/v1/logout \
   -H "Accept: application/json" \
   -H "Authorization: Bearer $TOKEN"
 ```
@@ -47,7 +47,7 @@ curl -X POST http://127.0.0.1:8000/api/logout \
 **Create founder**
 
 ```bash
-curl -X POST http://127.0.0.1:8000/api/employees \
+curl -X POST http://127.0.0.1:8000/api/v1/employees \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
@@ -57,7 +57,7 @@ curl -X POST http://127.0.0.1:8000/api/employees \
 **Create manager (under founder id=1)**
 
 ```bash
-curl -X POST http://127.0.0.1:8000/api/employees \
+curl -X POST http://127.0.0.1:8000/api/v1/employees \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
@@ -67,17 +67,17 @@ curl -X POST http://127.0.0.1:8000/api/employees \
 **Create employee (under manager id=2)**
 
 ```bash
-curl -X POST http://127.0.0.1:8000/api/employees \
+curl -X POST http://127.0.0.1:8000/api/v1/employees \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
-  -d '{"name":"Faris Little","email":"faris@hr.com","salary":9762,"is_founder":false,"manager_id":2}'
+  -d '{"name":"Faris Little","email":"faris@hr.com","salary":9762,"is_founder":false,"manager_id":5}'
 ```
 
 **Read all employees**
 
 ```bash
-curl -X GET http://127.0.0.1:8000/api/employees \
+curl -X GET http://127.0.0.1:8000/api/v1/employees \
   -H "Accept: application/json" \
   -H "Authorization: Bearer $TOKEN"
 ```
@@ -85,7 +85,7 @@ curl -X GET http://127.0.0.1:8000/api/employees \
 **Update employee (id=3)**
 
 ```bash
-curl -X PUT http://127.0.0.1:8000/api/employees/3 \
+curl -X PUT http://127.0.0.1:8000/api/v1/employees/3 \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
@@ -95,7 +95,7 @@ curl -X PUT http://127.0.0.1:8000/api/employees/3 \
 **Delete employee (id=3)**
 
 ```bash
-curl -X DELETE http://127.0.0.1:8000/api/employees/3 \
+curl -X DELETE http://127.0.0.1:8000/api/v1/employees/3 \
   -H "Accept: application/json" \
   -H "Authorization: Bearer $TOKEN"
 ```
@@ -103,7 +103,7 @@ curl -X DELETE http://127.0.0.1:8000/api/employees/3 \
 **Delete manager/founder with reassignment**
 
 ```bash
-curl -X DELETE "http://127.0.0.1:8000/api/employees/2?reassign_manager_id=4" \
+curl -X DELETE "http://127.0.0.1:8000/api/v1/employees/2?reassign_manager_id=4" \
   -H "Accept: application/json" \
   -H "Authorization: Bearer $TOKEN"
 ```
@@ -113,7 +113,7 @@ curl -X DELETE "http://127.0.0.1:8000/api/employees/2?reassign_manager_id=4" \
 **Hierarchy names**
 
 ```bash
-curl -X GET http://127.0.0.1:8000/api/employees/4/hierarchy/names \
+curl -X GET http://127.0.0.1:8000/api/v1/employees/5/hierarchy/names \
   -H "Accept: application/json" \
   -H "Authorization: Bearer $TOKEN"
 ```
@@ -121,7 +121,7 @@ curl -X GET http://127.0.0.1:8000/api/employees/4/hierarchy/names \
 **Hierarchy names + salaries**
 
 ```bash
-curl -X GET http://127.0.0.1:8000/api/employees/4/hierarchy/names-salaries \
+curl -X GET http://127.0.0.1:8000/api/v1/employees/5/hierarchy/names-salaries \
   -H "Accept: application/json" \
   -H "Authorization: Bearer $TOKEN"
 ```
@@ -131,7 +131,7 @@ curl -X GET http://127.0.0.1:8000/api/employees/4/hierarchy/names-salaries \
 **All employees**
 
 ```bash
-curl -X GET "http://127.0.0.1:8000/api/employees-search" \
+curl -X GET "http://127.0.0.1:8000/api/v1/employees-search" \
   -H "Accept: application/json" \
   -H "Authorization: Bearer $TOKEN"
 ```
@@ -139,7 +139,7 @@ curl -X GET "http://127.0.0.1:8000/api/employees-search" \
 **Search by name**
 
 ```bash
-curl -X GET "http://127.0.0.1:8000/api/employees-search?name=Oswald" \
+curl -X GET "http://127.0.0.1:8000/api/v1/employees-search?name=Oswald" \
   -H "Accept: application/json" \
   -H "Authorization: Bearer $TOKEN"
 ```
@@ -147,7 +147,7 @@ curl -X GET "http://127.0.0.1:8000/api/employees-search?name=Oswald" \
 **Search by salary**
 
 ```bash
-curl -X GET "http://127.0.0.1:8000/api/employees-search?salary=5895" \
+curl -X GET "http://127.0.0.1:8000/api/v1/employees-search?salary=5895" \
   -H "Accept: application/json" \
   -H "Authorization: Bearer $TOKEN"
 ```
@@ -157,7 +157,7 @@ curl -X GET "http://127.0.0.1:8000/api/employees-search?salary=5895" \
 **Export employees to CSV**
 
 ```bash
-curl -L "http://127.0.0.1:8000/api/employees-export/csv" \
+curl -L "http://127.0.0.1:8000/api/v1/employees-export/csv" \
   -H "Accept: text/csv" \
   -H "Authorization: Bearer $TOKEN" \
   -o employees.csv
@@ -166,7 +166,7 @@ curl -L "http://127.0.0.1:8000/api/employees-export/csv" \
 **Import employees from CSV**
 
 ```bash
-curl -X POST "http://127.0.0.1:8000/api/employees-import/csv" \
+curl -X POST "http://127.0.0.1:8000/api/v1/employees-import/csv" \
   -H "Accept: application/json" \
   -H "Authorization: Bearer $TOKEN" \
   -F "file=@/absolute/path/to/employees.csv"
@@ -177,7 +177,7 @@ curl -X POST "http://127.0.0.1:8000/api/employees-import/csv" \
 **Update salary (triggers notification flow)**
 
 ```bash
-curl -X PUT http://127.0.0.1:8000/api/employees/4 \
+curl -X PUT http://127.0.0.1:8000/api/v1/employees/4 \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
@@ -187,7 +187,7 @@ curl -X PUT http://127.0.0.1:8000/api/employees/4 \
 **Employees without recent salary change**
 
 ```bash
-curl -X GET "http://127.0.0.1:8000/api/employees-no-recent-salary-change?months=1" \
+curl -X GET "http://127.0.0.1:8000/api/v1/employees-no-recent-salary-change?months=1" \
   -H "Accept: application/json" \
   -H "Authorization: Bearer $TOKEN"
 ```
@@ -197,7 +197,7 @@ curl -X GET "http://127.0.0.1:8000/api/employees-no-recent-salary-change?months=
 **Create position**
 
 ```bash
-curl -X POST http://127.0.0.1:8000/api/positions \
+curl -X POST http://127.0.0.1:8000/api/v1/positions \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
@@ -207,7 +207,7 @@ curl -X POST http://127.0.0.1:8000/api/positions \
 **Read all positions**
 
 ```bash
-curl -X GET http://127.0.0.1:8000/api/positions \
+curl -X GET http://127.0.0.1:8000/api/v1/positions \
   -H "Accept: application/json" \
   -H "Authorization: Bearer $TOKEN"
 ```
@@ -215,7 +215,7 @@ curl -X GET http://127.0.0.1:8000/api/positions \
 **Update position (id=1)**
 
 ```bash
-curl -X PUT http://127.0.0.1:8000/api/positions/1 \
+curl -X PUT http://127.0.0.1:8000/api/v1/positions/1 \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
@@ -225,7 +225,7 @@ curl -X PUT http://127.0.0.1:8000/api/positions/1 \
 **Delete position (id=1)**
 
 ```bash
-curl -X DELETE http://127.0.0.1:8000/api/positions/1 \
+curl -X DELETE http://127.0.0.1:8000/api/v1/positions/1 \
   -H "Accept: application/json" \
   -H "Authorization: Bearer $TOKEN"
 ```
