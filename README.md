@@ -1,5 +1,10 @@
 # HR Management API
 
+## Versions
+
+- PHP: `8.4.11`
+- Laravel: `12.51.0`
+
 Use these commands to test the API.
 
 ## 1) Start Server
